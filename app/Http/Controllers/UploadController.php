@@ -6,6 +6,8 @@ use App\Image;
 use App\Repositories\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
@@ -23,12 +25,13 @@ class UploadController extends Controller
             $category = $this->categoryRepository->getCategoryById(
                 (int) $request->get('category_id')
             );
-            $file = $request->file('image');
-            $fileName = $file->getClientOriginalName();
-            $file->storeAs('public', $fileName);
+
+            $pathName = 'public/' . $category->id;
+            $path = Storage::disk('local')->putFile($pathName, $request->file('image'));
 
             $image = new Image();
-            $image->file_name = $fileName;
+            $image->file_name = $path;
+            //$image->file_name = $fileName;
             $image->category()->associate($category);
             $image->save();
 

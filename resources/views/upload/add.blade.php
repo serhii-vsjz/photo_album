@@ -2,7 +2,6 @@
 @section('content')
     <form action="{{ route('upload_image') }}" method="post" enctype="multipart/form-data">
         @csrf
-
         <select name="category_id">
             @foreach($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>

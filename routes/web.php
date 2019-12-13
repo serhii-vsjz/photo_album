@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth']], function (){
     Route::get('/categories', 'CategoryController@index')->name('category_list');
     Route::get('category', 'CategoryController@create')->name('category_create');
     Route::post('category', 'CategoryController@store')->name('category_store');
+    Route::get('/images/{id}', 'ImagesController@list')->name('images_list');
 
     Route::get('/upload', 'UploadController@create');
     Route::post('/upload', 'UploadController@upload')->name('upload_image');
