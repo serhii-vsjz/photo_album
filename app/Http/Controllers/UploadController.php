@@ -26,8 +26,8 @@ class UploadController extends Controller
                 (int) $request->get('category_id')
             );
 
-            $pathName = 'public/' . $category->id;
-            $path = Storage::disk('local')->putFile($pathName, $request->file('image'));
+            $pathName = $category->id;
+            $path = Storage::disk('public')->putFile($pathName, $request->file('image'));
 
             $image = new Image();
             $image->file_name = $path;
